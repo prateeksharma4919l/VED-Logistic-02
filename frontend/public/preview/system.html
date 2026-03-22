@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ved Work premium control center with admin, employee, and rider workflows."
+    />
+    <title>Ved Work Control Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="system.css" />
+  </head>
+  <body class="system-body">
+    <div class="system-shell">
+      <div class="system-ambient system-ambient-one"></div>
+      <div class="system-ambient system-ambient-two"></div>
+
+      <aside class="system-sidebar">
+        <a class="system-brand" href="index.html">
+          <span class="brand-mark">V</span>
+          <div>
+            <strong>Ved Work</strong>
+            <p>Premium control center</p>
+          </div>
+        </a>
+
+        <div class="sidebar-block">
+          <div class="sidebar-label-row">
+            <span class="sidebar-label">Role Switch</span>
+            <span class="sidebar-chip">Live</span>
+          </div>
+          <div class="role-switcher" id="roleSwitcher">
+            <button class="role-button is-active" type="button" data-role="admin">Admin</button>
+            <button class="role-button" type="button" data-role="employee">Employee</button>
+            <button class="role-button" type="button" data-role="rider">Rider</button>
+          </div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-label-row">
+            <span class="sidebar-label">Modules</span>
+            <span class="sidebar-chip">9</span>
+          </div>
+          <nav class="module-nav" id="moduleNav" aria-label="System sections"></nav>
+        </div>
+
+        <div class="sidebar-block sidebar-utility">
+          <div class="utility-card">
+            <p>Operations Pulse</p>
+            <strong>Daily logs, payroll flow, approvals, reports, and rider movement in one place.</strong>
+          </div>
+          <div class="utility-actions">
+            <button class="ghost-action" type="button" data-global-action="send-summary">Send Summary</button>
+            <button class="ghost-action" type="button" data-global-action="export-pack">Export Pack</button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="system-stage">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Ved Logistics Inspired Build</p>
+            <h1>System Experience</h1>
+          </div>
+          <div class="topbar-actions">
+            <a class="topbar-link" href="index.html">Back to Site</a>
+            <div class="clock-card">
+              <span>Live Clock</span>
+              <strong id="clockValue">--:--</strong>
+            </div>
+          </div>
+        </header>
+
+        <main class="workspace">
+          <section class="workspace-panel hero-panel">
+            <div class="panel-copy">
+              <p class="eyebrow" id="heroEyebrow">Admin Control</p>
+              <h2 id="heroTitle">Operations stay cleaner when every workflow speaks the same design language.</h2>
+              <p id="heroDescription">
+                Stronger hierarchy, richer actions, and clearer data views for admin, employees, and riders.
+              </p>
+            </div>
+
+            <div class="hero-action-row">
+              <button class="hero-action" type="button" data-global-action="run-payroll">Run Payroll</button>
+              <button class="hero-action hero-action-secondary" type="button" data-global-action="open-report">
+                Open Reports
+              </button>
+            </div>
+
+            <div class="summary-grid" id="summaryGrid"></div>
+          </section>
+
+          <section class="content-grid">
+            <article class="workspace-panel module-panel module-panel-large">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker" id="primaryKicker">Overview</p>
+                  <h3 id="primaryTitle">Role snapshot</h3>
+                </div>
+                <button class="panel-button" type="button" data-global-action="refresh-view">Refresh</button>
+              </div>
+              <div class="panel-content" id="modulePrimary"></div>
+            </article>
+
+            <aside class="workspace-panel module-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker" id="secondaryKicker">Watchlist</p>
+                  <h3 id="secondaryTitle">Alerts and quick actions</h3>
+                </div>
+              </div>
+              <div class="panel-content" id="moduleSecondary"></div>
+            </aside>
+
+            <article class="workspace-panel module-panel module-panel-wide">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker" id="detailKicker">Details</p>
+                  <h3 id="detailTitle">Structured data</h3>
+                </div>
+              </div>
+              <div class="panel-content" id="moduleDetail"></div>
+            </article>
+
+            <aside class="workspace-panel module-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="panel-kicker">Activity</p>
+                  <h3>Recent feed</h3>
+                </div>
+              </div>
+              <div class="panel-content">
+                <div class="activity-feed" id="activityFeed"></div>
+              </div>
+            </aside>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+    <script src="system.js"></script>
+  </body>
+</html>

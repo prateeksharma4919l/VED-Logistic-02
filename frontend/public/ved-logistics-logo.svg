@@ -1,0 +1,46 @@
+<svg width="640" height="220" viewBox="0 0 640 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="orangeArc" x1="18" y1="28" x2="184" y2="192" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9A1F"/>
+      <stop offset="1" stop-color="#E26A00"/>
+    </linearGradient>
+    <linearGradient id="blueArc" x1="72" y1="20" x2="226" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D61C8"/>
+      <stop offset="1" stop-color="#0C2E6E"/>
+    </linearGradient>
+    <linearGradient id="truckBlue" x1="420" y1="62" x2="584" y2="155" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173A7A"/>
+      <stop offset="1" stop-color="#07183D"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="220" rx="28" fill="white" fill-opacity="0.02"/>
+
+  <path d="M126 24C77 30 40 71 40 118C40 163 73 201 121 206" stroke="url(#orangeArc)" stroke-width="18" stroke-linecap="round"/>
+  <path d="M158 22C205 27 244 66 250 112C255 154 232 186 198 202" stroke="url(#blueArc)" stroke-width="16" stroke-linecap="round"/>
+
+  <path d="M64 106L92 74L124 121L162 74H313" stroke="#214EAA" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M138 120L173 86H257" stroke="#F28308" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M168 120L204 86" stroke="#F28308" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M214 120L244 86" stroke="#214EAA" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M248 86L292 86C302 86 309 93 309 103C309 113 302 120 292 120H246" stroke="#214EAA" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g transform="translate(382 48)">
+    <path d="M18 76H127L147 58H181C189 58 196 64 196 72V117H21C10 117 2 109 2 98V92C2 83 9 76 18 76Z" fill="url(#truckBlue)"/>
+    <path d="M41 35H114L145 58H74L41 35Z" fill="#F4A11D"/>
+    <path d="M18 74L118 74" stroke="#F4A11D" stroke-width="5" stroke-linecap="round"/>
+    <path d="M58 58H127" stroke="#DCEBFF" stroke-width="4" stroke-linecap="round"/>
+    <rect x="122" y="74" width="43" height="27" rx="5" fill="#DCEBFF"/>
+    <rect x="140" y="66" width="25" height="30" rx="4" fill="#F7FBFF"/>
+    <circle cx="54" cy="120" r="17" fill="#07183D"/>
+    <circle cx="54" cy="120" r="7" fill="#DCEBFF"/>
+    <circle cx="146" cy="120" r="17" fill="#07183D"/>
+    <circle cx="146" cy="120" r="7" fill="#DCEBFF"/>
+    <path d="M22 29L100 29" stroke="#F4A11D" stroke-width="4" stroke-linecap="round"/>
+    <path d="M12 43L86 43" stroke="#F4A11D" stroke-width="4" stroke-linecap="round" opacity="0.72"/>
+    <path d="M4 57L74 57" stroke="#F4A11D" stroke-width="4" stroke-linecap="round" opacity="0.48"/>
+  </g>
+
+  <text x="26" y="184" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="2">LOGISTICS</text>
+  <text x="24" y="210" fill="#76A7FF" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="2.8">OUR EXPERIENCE, YOUR ADVANTAGE</text>
+</svg>
