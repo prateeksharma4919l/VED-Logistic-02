@@ -35,7 +35,7 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}) {
       ...options,
     });
   } catch {
-    throw new Error("Backend unavailable. Make sure MongoDB and the API server are running.");
+    throw new Error("Backend unavailable. Make sure PostgreSQL and the API server are running.");
   }
   const json = (await res.json()) as ApiResponse<T>;
   if (!res.ok || !json.success) {

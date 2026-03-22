@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts",
+    "dev": "nodemon --watch src --ext ts,json --exec \"npm run build && npm run start\"",
     "start": "node dist/index.js",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint . --ext .ts"
