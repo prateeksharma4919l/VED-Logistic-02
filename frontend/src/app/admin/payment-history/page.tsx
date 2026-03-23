@@ -14,7 +14,7 @@ export default function AdminPaymentHistoryPage() {
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
-  const { data: items, mutate } = useSalaryPayments({ month });
+  const { data: items, mutate } = useSalaryPayments({ month, type: "employee" });
   const summary = useMemo(() => {
     const rows = items ?? [];
     return {
@@ -25,7 +25,7 @@ export default function AdminPaymentHistoryPage() {
   }, [items]);
 
   return (
-    <DashboardShell title="Payment History" subtitle="Stored salary payout records" items={adminNavItems}>
+    <DashboardShell title="Payment History" subtitle="Stored employee salary payout records" items={adminNavItems}>
       <div className="glass col-span-full p-6">
         <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="field-input w-full lg:w-56" />
       </div>
@@ -51,12 +51,11 @@ export default function AdminPaymentHistoryPage() {
         {actionFeedback ? <div className="mb-4 rounded-xl bg-emerald-500/15 p-4 text-sm text-emerald-100">{actionFeedback}</div> : null}
         {actionError ? <div className="mb-4 rounded-xl bg-rose-500/20 p-4 text-sm text-rose-100">{actionError}</div> : null}
         <div className="admin-table-scroll overflow-x-auto rounded-xl border border-white/10">
-          <table className="min-w-[1120px] w-full text-left text-sm text-indigo-100/80">
+          <table className="min-w-[1080px] w-full text-left text-sm text-indigo-100/80">
             <thead className="bg-white/5 text-xs uppercase tracking-wide text-indigo-100/60">
               <tr>
                 <th className="px-4 py-3">User ID</th>
                 <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Role</th>
                 <th className="px-4 py-3">Month</th>
                 <th className="px-4 py-3">Total Payment</th>
                 <th className="px-4 py-3">Advance Payment</th>
@@ -73,7 +72,6 @@ export default function AdminPaymentHistoryPage() {
                     <div className="font-medium text-white">{item.userName ?? "-"}</div>
                     <div className="text-xs text-indigo-100/60">{item.userEmail ?? ""}</div>
                   </td>
-                  <td className="px-4 py-3">{item.type}</td>
                   <td className="px-4 py-3">{item.month}</td>
                   <td className="px-4 py-3">Rs. {item.totalSalary.toLocaleString()}</td>
                   <td className="px-4 py-3">Rs. {item.advanceDeduction.toLocaleString()}</td>
@@ -127,7 +125,7 @@ export default function AdminPaymentHistoryPage() {
               ))}
               {!items?.length && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-sm text-indigo-100/70">
+                  <td colSpan={8} className="px-4 py-8 text-center text-sm text-indigo-100/70">
                     No payment history stored for this month.
                   </td>
                 </tr>

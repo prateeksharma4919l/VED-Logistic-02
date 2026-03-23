@@ -29,6 +29,7 @@ const fallbackIcons: Record<string, React.ReactNode> = {
   Overview: <FaChartLine />,
   "User Registration": <FaUserPlus />,
   Employees: <FaUsers />,
+  "Bike Meter Reading": <FaMotorcycle />,
   Riders: <FaMotorcycle />,
   Attendance: <FaClock />,
   Salary: <FaCoins />,

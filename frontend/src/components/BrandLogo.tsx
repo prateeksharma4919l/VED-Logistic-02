@@ -14,8 +14,10 @@ type BrandLogoProps = {
 };
 
 function getDashboardHref(role?: "admin" | "employee" | "rider") {
-  if (!role) return "/";
-  return `/${role}/dashboard`;
+  if (role === "admin" || role === "employee") {
+    return `/${role}/dashboard`;
+  }
+  return "/";
 }
 
 export function BrandLogo({

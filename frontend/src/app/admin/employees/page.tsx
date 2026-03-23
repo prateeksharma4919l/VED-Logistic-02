@@ -105,7 +105,7 @@ export default function AdminEmployeesPage() {
         <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="panel-title">Employees</h2>
-            <p className="panel-subtitle">Add, edit, and manage employees without affecting riders.</p>
+            <p className="panel-subtitle">Add, edit, and manage employees without touching bike meter logs.</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <SearchInput value={filter} onChange={setFilter} placeholder="Search employees..." />

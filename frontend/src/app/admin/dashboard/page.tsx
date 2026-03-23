@@ -13,11 +13,11 @@ export default function AdminDashboardPage() {
 
   const [month, setMonth] = useState(formatLocalMonth());
   const { data: employees } = useEmployees();
-  const { data: riders } = useRiders();
-  const { data: salary } = useSalary({ month });
-  const { data: payments } = useSalaryPayments({ month });
-  const { data: advances } = useAdvancePayments({ month });
-  const { data: attendance } = useAttendance({ month });
+  const { data: bikeMeters } = useRiders();
+  const { data: salary } = useSalary({ month, type: "employee" });
+  const { data: payments } = useSalaryPayments({ month, type: "employee" });
+  const { data: advances } = useAdvancePayments({ month, type: "employee" });
+  const { data: attendance } = useAttendance({ month, type: "employee" });
 
   const pendingCount = useMemo(
     () => (salary ?? []).filter((item) => item.paymentStatus === "pending").length,
@@ -61,7 +61,7 @@ export default function AdminDashboardPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="panel-title">Monthly Operations Snapshot</h2>
-            <p className="panel-subtitle">Everything syncs live from the employee and rider modules.</p>
+            <p className="panel-subtitle">Everything syncs live from employee records and bike meter logs.</p>
           </div>
           <input
             type="month"
@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
       </div>
 
       <StatCard title="Employees" value={employees ? `${employees.length}` : "..."} delta="Live synced roster" />
-      <StatCard title="Riders" value={riders ? `${riders.length}` : "..."} delta="Managed separately" />
+      <StatCard title="Bike Meter Entries" value={bikeMeters ? `${bikeMeters.length}` : "..."} delta="Morning and evening tracking" />
       <StatCard title="Pending Salaries" value={`${pendingCount}`} delta={`for ${month}`} />
       <StatCard title="Paid Salaries" value={`${paidCount}`} delta={`${openCheckouts} open check-outs`} />
 
@@ -157,14 +157,14 @@ export default function AdminDashboardPage() {
 
       <div className="glass p-6">
         <h3 className="panel-title">Recent Advance Logs</h3>
-        <p className="panel-subtitle">Latest advance activity across employees and riders.</p>
+        <p className="panel-subtitle">Latest advance activity across employee payroll records.</p>
         <div className="mt-5 space-y-3">
           {(advances ?? []).slice(0, 5).map((item) => (
             <div key={item._id} className="rounded-2xl border border-white/10 bg-white/5 p-4">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-medium text-white">{item.userName ?? item.userIdentifier ?? item.userId}</p>
-                  <p className="text-xs text-indigo-100/60">{item.type.toUpperCase()} • {new Date(item.date).toLocaleDateString()}</p>
+                  <p className="text-xs text-indigo-100/60">{item.type.toUpperCase()} | {new Date(item.date).toLocaleDateString()}</p>
                 </div>
                 <p className="text-lg font-semibold text-cyan-200">Rs. {item.amount.toLocaleString()}</p>
               </div>

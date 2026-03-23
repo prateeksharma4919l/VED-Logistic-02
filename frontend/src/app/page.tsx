@@ -8,12 +8,12 @@ export default function Home() {
   const portals = [
     {
       title: "Admin Login",
-      description: "Access management dashboard, riders, attendance, salary, and reporting controls.",
+      description: "Access management dashboard, bike meter reading, attendance, salary, and reporting controls.",
       href: "/admin/login",
       badge: "Control",
       accent: "from-ved-500/80 to-ved-300/70",
       shadow: "shadow-ved-500/20",
-      points: ["Employees and riders", "Attendance and payroll", "Reports and approvals"],
+      points: ["Employees and bike logs", "Attendance and payroll", "Reports and approvals"],
     },
     {
       title: "Employee Login",
@@ -24,20 +24,11 @@ export default function Home() {
       shadow: "shadow-emerald-400/20",
       points: ["Check-in and check-out", "Salary and advances", "Personal report lane"],
     },
-    {
-      title: "Rider Login",
-      description: "Track attendance, payout status, route-linked work context, and advance requests.",
-      href: "/rider/login",
-      badge: "Field",
-      accent: "from-cyan-400/80 to-sky-300/70",
-      shadow: "shadow-cyan-400/20",
-      points: ["Attendance tracking", "Payment history", "Route-ready workflow"],
-    },
   ];
 
   const highlights = [
-    { label: "Core Modules", value: "9+", note: "attendance, salary, advances, reports, riders, and more" },
-    { label: "Access Layers", value: "3", note: "admin, employee, and rider role flows" },
+    { label: "Core Modules", value: "8+", note: "attendance, salary, advances, reports, bike meter logs, and more" },
+    { label: "Access Layers", value: "2", note: "admin and employee role flows" },
     { label: "Delivery Feel", value: "Premium", note: "cleaner UI, richer surfaces, and stronger motion" },
   ];
 
@@ -51,8 +42,8 @@ export default function Home() {
       copy: "Salary snapshots, advance deductions, payment history, and admin payout actions.",
     },
     {
-      title: "Reports and Exports",
-      copy: "Daily summary packs, payroll sheets, and preview-ready export workflows.",
+      title: "Bike Meter Reading",
+      copy: "Track bike number, morning meter, evening meter, and running distance from one admin lane.",
     },
   ];
 
@@ -70,7 +61,7 @@ export default function Home() {
                 Ved Logistics
               </p>
               <p className="mt-1 text-sm text-indigo-100/70">
-                Attendance, payroll, reporting, and rider operations in one system.
+                Attendance, payroll, reporting, and bike meter tracking in one system.
               </p>
             </div>
           </div>
@@ -105,9 +96,9 @@ export default function Home() {
               Built to run logistics operations with more clarity and better flow.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-indigo-100/75">
-              This repo now carries a complete Ved Logistics style workspace: admin, employee, and
-              rider access with cleaner onboarding, stronger visuals, polished dashboards, and
-              premium preview assets.
+              This repo now carries a complete Ved Logistics style workspace with admin control,
+              employee access, bike meter logging, cleaner onboarding, stronger visuals, polished
+              dashboards, and premium preview assets.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -159,7 +150,7 @@ export default function Home() {
           </motion.aside>
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-3">
+        <section className="grid gap-6 lg:grid-cols-2">
           {portals.map((portal, index) => (
             <motion.article
               key={portal.title}

@@ -14,12 +14,11 @@ import {
   updateAdvancePayment,
   useAdvancePayments,
   useEmployees,
-  useRiders,
 } from "@/lib/endpoints";
 import { formatLocalDate, formatLocalMonth } from "@/lib/dates";
 import { adminNavItems } from "@/lib/navigation";
 
-const emptyForm = { userId: "", type: "employee", amount: "", date: formatLocalDate(), note: "", status: "approved" };
+const emptyForm = { userId: "", amount: "", date: formatLocalDate(), note: "", status: "approved" };
 
 export default function AdminAdvancePaymentsPage() {
   useRequireAuth("admin", "/admin/login");
@@ -33,9 +32,8 @@ export default function AdminAdvancePaymentsPage() {
   const [saving, setSaving] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
-  const { data: items, mutate } = useAdvancePayments({ month, status: status || undefined });
+  const { data: items, mutate } = useAdvancePayments({ month, status: status || undefined, type: "employee" });
   const { data: employees } = useEmployees();
-  const { data: riders } = useRiders();
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -45,20 +43,20 @@ export default function AdminAdvancePaymentsPage() {
         item.userId.toLowerCase().includes(query) ||
         (item.userIdentifier ?? "").toLowerCase().includes(query) ||
         (item.userName ?? "").toLowerCase().includes(query) ||
-        item.type.toLowerCase().includes(query) ||
         (item.note ?? "").toLowerCase().includes(query)
       );
     });
   }, [items, search]);
 
-  const selectedUsers = useMemo(() => {
-    const source = form.type === "employee" ? employees ?? [] : riders ?? [];
-    return source.map((item) => ({
-      id: item._id,
-      label: `${item.name} (${item.username})`,
-      helper: item.email,
-    }));
-  }, [employees, form.type, riders]);
+  const selectedUsers = useMemo(
+    () =>
+      (employees ?? []).map((item) => ({
+        id: item._id,
+        label: `${item.name} (${item.username})`,
+        helper: item.email,
+      })),
+    [employees]
+  );
 
   const pendingAmount = (items ?? [])
     .filter((item) => item.status === "pending")
@@ -75,7 +73,7 @@ export default function AdminAdvancePaymentsPage() {
     try {
       const payload = {
         userId: form.userId,
-        type: form.type as "employee" | "rider",
+        type: "employee" as const,
         amount: Number(form.amount) || 0,
         date: form.date,
         note: form.note,
@@ -139,7 +137,7 @@ export default function AdminAdvancePaymentsPage() {
   }
 
   return (
-    <DashboardShell title="Advance Payments" subtitle="Review requests and deduct approved advances from salary automatically" items={adminNavItems}>
+    <DashboardShell title="Advance Payments" subtitle="Review employee requests and deduct approved advances from salary automatically" items={adminNavItems}>
       <div className="glass col-span-full p-6">
         <div className="grid gap-3 lg:grid-cols-4">
           <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="field-input" />
@@ -150,7 +148,7 @@ export default function AdminAdvancePaymentsPage() {
             <option className="bg-slate-900" value="rejected">Rejected</option>
           </select>
           <div className="lg:col-span-2">
-            <SearchInput value={search} onChange={setSearch} placeholder="Search by user id, role, or note" />
+            <SearchInput value={search} onChange={setSearch} placeholder="Search by user id, name, or note" />
           </div>
         </div>
         <div className="mt-4 flex justify-end">
@@ -162,7 +160,7 @@ export default function AdminAdvancePaymentsPage() {
 
       <div className="glass p-6">
         <h3 className="panel-title">Advance Summary</h3>
-        <p className="panel-subtitle">Approved amounts are deducted from salary as soon as approval is saved.</p>
+        <p className="panel-subtitle">Approved employee advances are deducted from salary as soon as approval is saved.</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <p className="text-sm text-indigo-100/60">Pending Approval</p>
@@ -183,12 +181,11 @@ export default function AdminAdvancePaymentsPage() {
         {actionFeedback ? <div className="mb-4 rounded-xl bg-emerald-500/15 p-4 text-sm text-emerald-100">{actionFeedback}</div> : null}
         {actionError ? <div className="mb-4 rounded-xl bg-rose-500/20 p-4 text-sm text-rose-100">{actionError}</div> : null}
         <div className="admin-table-scroll overflow-x-auto rounded-xl border border-white/10">
-          <table className="min-w-[1180px] w-full text-left text-sm text-indigo-100/80">
+          <table className="min-w-[1120px] w-full text-left text-sm text-indigo-100/80">
             <thead className="bg-white/5 text-xs uppercase tracking-wide text-indigo-100/60">
               <tr>
                 <th className="px-4 py-3">User ID</th>
                 <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Role</th>
                 <th className="px-4 py-3">Amount</th>
                 <th className="px-4 py-3">Date</th>
                 <th className="px-4 py-3">Status</th>
@@ -204,22 +201,20 @@ export default function AdminAdvancePaymentsPage() {
                     <div className="font-medium text-white">{item.userName ?? "-"}</div>
                     <div className="text-xs text-indigo-100/60">{item.userEmail ?? ""}</div>
                   </td>
-                  <td className="px-4 py-3 capitalize">{item.type}</td>
                   <td className="px-4 py-3">Rs. {item.amount.toLocaleString()}</td>
                   <td className="px-4 py-3">{new Date(item.date).toLocaleDateString()}</td>
                   <td className="px-4 py-3"><StatusBadge status={item.status} /></td>
                   <td className="px-4 py-3">{item.note || "-"}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => {
-                            setActionError(null);
-                            setActionFeedback(null);
-                            setEditingId(item._id);
-                            setForm({
-                              userId: item.userId,
-                              type: item.type,
-                              amount: String(item.amount),
+                      <button
+                        onClick={() => {
+                          setActionError(null);
+                          setActionFeedback(null);
+                          setEditingId(item._id);
+                          setForm({
+                            userId: item.userId,
+                            amount: String(item.amount),
                             date: item.date.slice(0, 10),
                             note: item.note || "",
                             status: item.status,
@@ -240,10 +235,7 @@ export default function AdminAdvancePaymentsPage() {
                           Reject
                         </button>
                       ) : null}
-                      <button
-                        onClick={() => removeAdvance(item._id)}
-                        className="ghost-button border-rose-400/30 text-rose-100"
-                      >
+                      <button onClick={() => removeAdvance(item._id)} className="ghost-button border-rose-400/30 text-rose-100">
                         Delete
                       </button>
                     </div>
@@ -252,7 +244,7 @@ export default function AdminAdvancePaymentsPage() {
               ))}
               {!filtered.length && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-sm text-indigo-100/70">
+                  <td colSpan={7} className="px-4 py-8 text-center text-sm text-indigo-100/70">
                     No advance payments found.
                   </td>
                 </tr>
@@ -276,10 +268,6 @@ export default function AdminAdvancePaymentsPage() {
         }
       >
         <div className="grid gap-4">
-          <select value={form.type} onChange={(e) => setForm((prev) => ({ ...prev, type: e.target.value, userId: "" }))} className="field-select">
-            <option className="bg-slate-900" value="employee">employee</option>
-            <option className="bg-slate-900" value="rider">rider</option>
-          </select>
           <select value={form.userId} onChange={(e) => setForm((prev) => ({ ...prev, userId: e.target.value }))} className="field-select">
             <option className="bg-slate-900" value="">Select user</option>
             {selectedUsers.map((item) => (

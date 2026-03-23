@@ -11,12 +11,11 @@ export default function AdminSalaryPage() {
   useRequireAuth("admin", "/admin/login");
 
   const [month, setMonth] = useState(formatLocalMonth());
-  const [type, setType] = useState<"" | "employee" | "rider">("");
   const [processingKey, setProcessingKey] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
-  const { data: salary, mutate } = useSalary({ month, type: type || undefined });
-  const { mutate: mutatePayments } = useSalaryPayments({ month, type: type || undefined });
+  const { data: salary, mutate } = useSalary({ month, type: "employee" });
+  const { mutate: mutatePayments } = useSalaryPayments({ month, type: "employee" });
   const totals = useMemo(() => {
     const items = salary ?? [];
     return {
@@ -27,13 +26,13 @@ export default function AdminSalaryPage() {
     };
   }, [salary]);
 
-  async function markPaid(userId: string, role: "employee" | "rider") {
-    const key = `${role}-${userId}`;
+  async function markPaid(userId: string) {
+    const key = `employee-${userId}`;
     setProcessingKey(key);
     setActionError(null);
     setActionFeedback(null);
     try {
-      await createSalaryPayment({ userId, type: role, month, status: "paid" });
+      await createSalaryPayment({ userId, type: "employee", month, status: "paid" });
       await Promise.all([mutate(), mutatePayments()]);
       setActionFeedback("Salary payment marked as paid successfully.");
     } catch (err: any) {
@@ -46,14 +45,7 @@ export default function AdminSalaryPage() {
   return (
     <DashboardShell title="Salary" subtitle="Monthly salary summaries with live advance deductions" items={adminNavItems}>
       <div className="glass col-span-full p-6">
-        <div className="grid gap-3 md:grid-cols-3">
-          <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="field-input" />
-          <select value={type} onChange={(e) => setType(e.target.value as any)} className="field-select">
-            <option className="bg-slate-900" value="">All roles</option>
-            <option className="bg-slate-900" value="employee">Employees</option>
-            <option className="bg-slate-900" value="rider">Riders</option>
-          </select>
-        </div>
+        <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="field-input" />
       </div>
 
       <div className="glass p-6">
@@ -83,11 +75,10 @@ export default function AdminSalaryPage() {
         {actionFeedback ? <div className="mb-4 rounded-xl bg-emerald-500/15 p-4 text-sm text-emerald-100">{actionFeedback}</div> : null}
         {actionError ? <div className="mb-4 rounded-xl bg-rose-500/20 p-4 text-sm text-rose-100">{actionError}</div> : null}
         <div className="admin-table-scroll overflow-x-auto rounded-xl border border-white/10">
-          <table className="min-w-[1180px] w-full text-left text-sm text-indigo-100/80">
+          <table className="min-w-[1100px] w-full text-left text-sm text-indigo-100/80">
             <thead className="bg-white/5 text-xs uppercase tracking-wide text-indigo-100/60">
               <tr>
                 <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Role</th>
                 <th className="px-4 py-3">Monthly Salary</th>
                 <th className="px-4 py-3">Approved Advance</th>
                 <th className="px-4 py-3">Final Payable</th>
@@ -98,12 +89,11 @@ export default function AdminSalaryPage() {
             </thead>
             <tbody>
               {(salary ?? []).map((item) => (
-                <tr key={`${item.type}-${item.userId}`} className="border-t border-white/10 hover:bg-white/5">
+                <tr key={item.userId} className="border-t border-white/10 hover:bg-white/5">
                   <td className="px-4 py-3">
                     <div className="font-medium text-white">{item.name}</div>
-                    <div className="text-xs text-indigo-100/60">{item.username} • {item.email}</div>
+                    <div className="text-xs text-indigo-100/60">{item.username} | {item.email}</div>
                   </td>
-                  <td className="px-4 py-3 capitalize">{item.type}</td>
                   <td className="px-4 py-3">Rs. {item.monthlySalary.toLocaleString()}</td>
                   <td className="px-4 py-3">Rs. {item.advanceDeduction.toLocaleString()}</td>
                   <td className="px-4 py-3 text-white">Rs. {item.finalSalary.toLocaleString()}</td>
@@ -112,13 +102,13 @@ export default function AdminSalaryPage() {
                   <td className="px-4 py-3">
                     <div className="flex justify-end">
                       <button
-                        onClick={() => markPaid(item.userId, item.type)}
-                        disabled={item.paymentStatus === "paid" || processingKey === `${item.type}-${item.userId}`}
+                        onClick={() => markPaid(item.userId)}
+                        disabled={item.paymentStatus === "paid" || processingKey === `employee-${item.userId}`}
                         className="action-button bg-gradient-to-r from-emerald-500/70 to-emerald-300/70 disabled:opacity-50"
                       >
                         {item.paymentStatus === "paid"
                           ? "Paid"
-                          : processingKey === `${item.type}-${item.userId}`
+                          : processingKey === `employee-${item.userId}`
                             ? "Saving..."
                             : "Mark paid"}
                       </button>
@@ -128,7 +118,7 @@ export default function AdminSalaryPage() {
               ))}
               {!salary?.length && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-sm text-indigo-100/70">
+                  <td colSpan={7} className="px-4 py-8 text-center text-sm text-indigo-100/70">
                     No salary records for this month.
                   </td>
                 </tr>

@@ -2,7 +2,7 @@ export const adminNavItems = [
   { href: "/admin/dashboard", label: "Overview" },
   { href: "/admin/user-registration", label: "User Registration" },
   { href: "/admin/employees", label: "Employees" },
-  { href: "/admin/riders", label: "Riders" },
+  { href: "/admin/riders", label: "Bike Meter Reading" },
   { href: "/admin/attendance", label: "Attendance" },
   { href: "/admin/salary", label: "Salary" },
   { href: "/admin/advance-payments", label: "Advance Payments" },
