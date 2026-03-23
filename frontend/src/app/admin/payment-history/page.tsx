@@ -29,7 +29,7 @@ export default function AdminPaymentHistoryPage() {
       <div className="glass col-span-full p-6">
         <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="field-input w-full lg:w-56" />
       </div>
-      <div className="glass p-6">
+      <div className="glass p-6 lg:col-span-2">
         <h3 className="panel-title">Payment Snapshot</h3>
         <p className="panel-subtitle">Stored payout records for {month}.</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-3">

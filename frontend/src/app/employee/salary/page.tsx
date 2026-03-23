@@ -58,7 +58,7 @@ export default function EmployeeSalaryPage() {
         </div>
       </div>
 
-      <div className="glass p-6">
+      <div className="glass p-6 lg:col-span-2">
         <h3 className="panel-title">Payment Status</h3>
         <p className="panel-subtitle">Latest salary payment record for the selected month.</p>
         <div className="mt-5 space-y-4 text-sm text-indigo-100/75">

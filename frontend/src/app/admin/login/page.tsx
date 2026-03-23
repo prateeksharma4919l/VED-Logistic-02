@@ -7,7 +7,7 @@ export default function AdminLoginPage() {
     <RoleLoginExperience
       role="admin"
       title="Admin command center with cleaner control and stronger visual confidence."
-      description="Access payroll, bike meter reading, employee management, attendance operations, and report workflows from a richer, workshop-ready login experience."
+      description="Access payroll, bike meter reading, employee management, attendance operations, and report workflows from one premium operations login."
       redirectTo="/admin/dashboard"
       badge="Admin Access"
       accentClassName="from-ved-500/85 to-fuchsia-400/70"
@@ -16,7 +16,7 @@ export default function AdminLoginPage() {
       quickPoints={[
         "Review attendance flow, salary status, and advance approvals from one admin lane.",
         "Open bike meter, employee, report, and payroll modules with a cleaner entry experience.",
-        "Use seeded demo access locally to test the full workshop build quickly.",
+        "Use seeded demo access locally to test the full operations flow quickly.",
       ]}
       stats={[
         { label: "Control", value: "8+ Modules", note: "Payroll, reports, attendance, bike meter logs, employees, and more." },

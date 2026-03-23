@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ved-logistics-postgres
+    name: ved-logistics-web
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
@@ -15,8 +15,14 @@ services:
       - key: API_INTERNAL_PORT
         value: "4000"
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: ved-logistics-db
+          property: connectionString
       - key: JWT_SECRET
-        sync: false
+        generateValue: true
       - key: DISABLE_DAILY_SUMMARY
         value: "true"
+databases:
+  - name: ved-logistics-db
+    plan: free
+    databaseName: vedlogistics

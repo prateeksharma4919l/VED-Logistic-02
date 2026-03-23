@@ -38,7 +38,7 @@ export default function EmployeePaymentHistoryPage() {
         </div>
       </div>
 
-      <div className="glass p-6">
+      <div className="glass p-6 lg:col-span-2">
         <h3 className="panel-title">Monthly Snapshot</h3>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">

@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRequireAuth } from "@/lib/auth";
 import { DashboardShell } from "@/components/DashboardShell";
 import { StatCard } from "@/components/StatCard";
 import { useAdvancePayments, useAttendance, useEmployees, useRiders, useSalary, useSalaryPayments } from "@/lib/endpoints";
 import { formatLocalMonth } from "@/lib/dates";
-import { adminNavItems } from "@/lib/navigation";
+import { adminDashboardModules, adminNavItems } from "@/lib/navigation";
 
 export default function AdminDashboardPage() {
   useRequireAuth("admin", "/admin/login");
@@ -54,6 +55,31 @@ export default function AdminDashboardPage() {
         .slice(0, 6),
     [salary]
   );
+  const payrollCards = [
+    {
+      label: "Total Monthly Salary",
+      prefix: "Rs.",
+      value: totalMonthlySalary.toLocaleString(),
+      helper: "Combined salary commitment for active employees.",
+    },
+    {
+      label: "Approved Advance",
+      prefix: "Rs.",
+      value: totalAdvance.toLocaleString(),
+      helper: "Approved salary advances already adjusted in payroll.",
+    },
+    {
+      label: "Net Payroll",
+      prefix: "Rs.",
+      value: totalPayable.toLocaleString(),
+      helper: "Final payable amount after advance deductions.",
+    },
+    {
+      label: "Pending Advances",
+      value: `${pendingAdvances}`,
+      helper: "Advance requests waiting for admin approval.",
+    },
+  ];
 
   return (
     <DashboardShell title="Admin Dashboard" subtitle="Attendance, salary, and payments control center" items={adminNavItems}>
@@ -72,31 +98,72 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      <StatCard title="Employees" value={employees ? `${employees.length}` : "..."} delta="Live synced roster" />
-      <StatCard title="Bike Meter Entries" value={bikeMeters ? `${bikeMeters.length}` : "..."} delta="Morning and evening tracking" />
-      <StatCard title="Pending Salaries" value={`${pendingCount}`} delta={`for ${month}`} />
-      <StatCard title="Paid Salaries" value={`${paidCount}`} delta={`${openCheckouts} open check-outs`} />
+      <StatCard title="Employees" value={employees ? `${employees.length}` : "..."} delta="Live synced roster" href="/admin/employees" />
+      <StatCard title="Bike Meter Entries" value={bikeMeters ? `${bikeMeters.length}` : "..."} delta="Morning and evening tracking" href="/admin/riders" />
+      <StatCard title="Pending Salaries" value={`${pendingCount}`} delta={`for ${month}`} href="/admin/salary" />
+      <StatCard title="Paid Salaries" value={`${paidCount}`} delta={`${openCheckouts} open check-outs`} href="/admin/payment-history" />
 
-      <div className="glass p-6">
-        <h3 className="panel-title">Payroll Overview</h3>
-        <p className="panel-subtitle">Simple monthly view: monthly salary, approved advances, and net payroll.</p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-xs uppercase tracking-[0.25em] text-indigo-100/55">Total Monthly Salary</p>
-            <p className="mt-3 text-3xl font-semibold text-white">Rs. {totalMonthlySalary.toLocaleString()}</p>
+      <div className="glass col-span-full p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 className="panel-title">Admin Modules</h3>
+            <p className="panel-subtitle">Dashboard se har admin option ka direct separate page open hota hai, taaki koi module mix na lage.</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-xs uppercase tracking-[0.25em] text-indigo-100/55">Approved Advance</p>
-            <p className="mt-3 text-3xl font-semibold text-white">Rs. {totalAdvance.toLocaleString()}</p>
+          <Link
+            href="/admin/user-registration"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-ved-500/70 to-cyan-300/70 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:-translate-y-0.5"
+          >
+            Create new account
+          </Link>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {adminDashboardModules.map((module) => (
+            <Link
+              key={module.href}
+              href={module.href}
+              className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.07]"
+            >
+              <div className={`inline-flex rounded-full bg-gradient-to-r ${module.accent} px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white`}>
+                {module.eyebrow}
+              </div>
+              <h4 className="mt-4 text-xl font-semibold text-white">{module.label}</h4>
+              <p className="mt-3 text-sm leading-7 text-indigo-100/74">{module.summary}</p>
+              <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100/70">Open separate page</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="glass p-6 lg:col-span-2">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 className="panel-title">Payroll Overview</h3>
+            <p className="panel-subtitle">Monthly salary, approved deductions, and final payable amount in a cleaner summary view.</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-xs uppercase tracking-[0.25em] text-indigo-100/55">Net Payroll</p>
-            <p className="mt-3 text-3xl font-semibold text-white">Rs. {totalPayable.toLocaleString()}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-xs uppercase tracking-[0.25em] text-indigo-100/55">Pending Advances</p>
-            <p className="mt-3 text-3xl font-semibold text-white">{pendingAdvances}</p>
-          </div>
+          <Link href="/admin/salary" className="ghost-button whitespace-nowrap">
+            Open salary page
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
+          {payrollCards.map((card) => (
+            <div key={card.label} className="min-w-0 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5">
+              <p className="text-[11px] font-semibold uppercase leading-5 tracking-[0.18em] text-indigo-100/55">
+                {card.label}
+              </p>
+              <div className="mt-4 min-w-0">
+                {card.prefix ? (
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-100/70">
+                    {card.prefix}
+                  </span>
+                ) : null}
+                <p className="mt-2 break-words text-[clamp(2rem,4vw,2.8rem)] font-semibold leading-none tracking-tight text-white tabular-nums">
+                  {card.value}
+                </p>
+              </div>
+              <p className="mt-3 text-xs leading-6 text-indigo-100/60">{card.helper}</p>
+            </div>
+          ))}
         </div>
         <div className="mt-6 overflow-hidden rounded-xl border border-white/10">
           <table className="w-full text-left text-sm text-indigo-100/80">
@@ -137,27 +204,49 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="glass p-6">
-        <h3 className="panel-title">Operations Watchlist</h3>
-        <p className="panel-subtitle">Quick checks for approvals, open attendance sessions, and latest advances.</p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 className="panel-title">Operations Watchlist</h3>
+            <p className="panel-subtitle">Quick checks for approvals, open attendance sessions, and latest advances.</p>
+          </div>
+          <Link href="/admin/attendance" className="ghost-button whitespace-nowrap">
+            Open attendance
+          </Link>
+        </div>
         <div className="mt-5 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <Link href="/admin/attendance" className="rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10">
             <p className="text-sm text-indigo-100/60">Open Check-outs</p>
             <p className="mt-2 text-3xl font-semibold text-white">{openCheckouts}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          </Link>
+          <Link href="/admin/salary" className="rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10">
             <p className="text-sm text-indigo-100/60">Pending Salary Marking</p>
             <p className="mt-2 text-3xl font-semibold text-white">{pendingCount}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          </Link>
+          <Link href="/admin/advance-payments" className="rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10">
             <p className="text-sm text-indigo-100/60">Advance Requests</p>
             <p className="mt-2 text-3xl font-semibold text-white">{(advances ?? []).length}</p>
-          </div>
+          </Link>
+        </div>
+        <div className="mt-5 grid gap-3">
+          <Link href="/admin/reports" className="rounded-2xl border border-cyan-300/15 bg-cyan-400/10 px-4 py-4 text-sm text-cyan-100 transition hover:bg-cyan-400/15">
+            Review reports and export latest admin summary
+          </Link>
+          <Link href="/admin/payment-history" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-indigo-100/80 transition hover:bg-white/10">
+            Open payment history for final payout records
+          </Link>
         </div>
       </div>
 
       <div className="glass p-6">
-        <h3 className="panel-title">Recent Advance Logs</h3>
-        <p className="panel-subtitle">Latest advance activity across employee payroll records.</p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 className="panel-title">Recent Advance Logs</h3>
+            <p className="panel-subtitle">Latest advance activity across employee payroll records.</p>
+          </div>
+          <Link href="/admin/advance-payments" className="ghost-button whitespace-nowrap">
+            Open advance page
+          </Link>
+        </div>
         <div className="mt-5 space-y-3">
           {(advances ?? []).slice(0, 5).map((item) => (
             <div key={item._id} className="rounded-2xl border border-white/10 bg-white/5 p-4">

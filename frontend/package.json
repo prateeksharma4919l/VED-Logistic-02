@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev -H :: -p 3000",
-    "build": "next build",
-    "start": "next start -H :: -p 3000",
+    "dev": "node ../scripts/run-next.cjs dev frontend -H 127.0.0.1 -p 3000",
+    "build": "node ../scripts/run-next.cjs build frontend",
+    "start": "node ../scripts/run-next.cjs start frontend -H 127.0.0.1 -p 3000",
     "lint": "next lint"
   },
   "dependencies": {

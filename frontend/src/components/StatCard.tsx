@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ReactNode } from "react";
 
 export function StatCard({
@@ -5,16 +6,17 @@ export function StatCard({
   value,
   delta,
   icon,
+  href,
 }: {
   title: string;
   value: string;
   delta?: string;
   icon?: ReactNode;
+  href?: string;
 }) {
   const isLoading = value === "..." || value === "";
-
-  return (
-    <div className="card p-6">
+  const body = (
+    <>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-indigo-100/80">{title}</p>
@@ -31,6 +33,17 @@ export function StatCard({
       {delta ? (
         <p className="mt-4 text-sm text-green-200">{delta}</p>
       ) : null}
-    </div>
+      {href ? <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-100/75">Open module</p> : null}
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="card block p-6 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/20">
+        {body}
+      </Link>
+    );
+  }
+
+  return <div className="card p-6">{body}</div>;
 }

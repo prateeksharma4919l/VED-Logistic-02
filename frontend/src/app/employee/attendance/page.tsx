@@ -72,7 +72,7 @@ export default function EmployeeAttendancePage() {
 
   return (
     <DashboardShell title="Attendance" subtitle="Check in, check out, and review your attendance month-wise" items={employeeNavItems}>
-      <div className="glass p-6">
+      <div className="glass p-6 lg:col-span-2">
         <h2 className="panel-title">Today's Status</h2>
         <p className="panel-subtitle">Aaj ka attendance yahan se direct manage karo.</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-3">

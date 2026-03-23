@@ -25,6 +25,31 @@ export default function AdminSalaryPage() {
       pending: items.filter((item) => item.paymentStatus === "pending").length,
     };
   }, [salary]);
+  const summaryCards = [
+    {
+      label: "Total Monthly Salary",
+      prefix: "Rs.",
+      value: totals.monthlySalary.toLocaleString(),
+      helper: "Overall salary commitment for the selected month.",
+    },
+    {
+      label: "Approved Advance",
+      prefix: "Rs.",
+      value: totals.approvedAdvance.toLocaleString(),
+      helper: "Advance amount already approved and adjusted.",
+    },
+    {
+      label: "Net Payroll",
+      prefix: "Rs.",
+      value: totals.finalSalary.toLocaleString(),
+      helper: "Final payable salary after deductions.",
+    },
+    {
+      label: "Pending Payments",
+      value: `${totals.pending}`,
+      helper: "Salary entries still waiting to be marked paid.",
+    },
+  ];
 
   async function markPaid(userId: string) {
     const key = `employee-${userId}`;
@@ -48,26 +73,28 @@ export default function AdminSalaryPage() {
         <input type="month" value={month} onChange={(e) => setMonth(e.target.value)} className="field-input" />
       </div>
 
-      <div className="glass p-6">
+      <div className="glass p-6 lg:col-span-2">
         <h3 className="panel-title">Salary Snapshot</h3>
         <p className="panel-subtitle">Monthly salary minus approved advances for {month}.</p>
-        <div className="mt-5 grid gap-4 sm:grid-cols-4">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-indigo-100/60">Total Monthly Salary</p>
-            <p className="mt-2 text-3xl font-semibold text-white">Rs. {totals.monthlySalary.toLocaleString()}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-indigo-100/60">Approved Advance</p>
-            <p className="mt-2 text-3xl font-semibold text-white">Rs. {totals.approvedAdvance.toLocaleString()}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-indigo-100/60">Net Payroll</p>
-            <p className="mt-2 text-3xl font-semibold text-white">Rs. {totals.finalSalary.toLocaleString()}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-indigo-100/60">Pending Payments</p>
-            <p className="mt-2 text-3xl font-semibold text-white">{totals.pending}</p>
-          </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
+          {summaryCards.map((card) => (
+            <div key={card.label} className="min-w-0 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5">
+              <p className="text-[11px] font-semibold uppercase leading-5 tracking-[0.18em] text-indigo-100/55">
+                {card.label}
+              </p>
+              <div className="mt-4 min-w-0">
+                {card.prefix ? (
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-100/70">
+                    {card.prefix}
+                  </span>
+                ) : null}
+                <p className="mt-2 break-words text-[clamp(2rem,4vw,2.8rem)] font-semibold leading-none tracking-tight text-white tabular-nums">
+                  {card.value}
+                </p>
+              </div>
+              <p className="mt-3 text-xs leading-6 text-indigo-100/60">{card.helper}</p>
+            </div>
+          ))}
         </div>
       </div>
 

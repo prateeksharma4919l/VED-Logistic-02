@@ -158,7 +158,7 @@ export default function AdminAdvancePaymentsPage() {
         </div>
       </div>
 
-      <div className="glass p-6">
+      <div className="glass p-6 lg:col-span-2">
         <h3 className="panel-title">Advance Summary</h3>
         <p className="panel-subtitle">Approved employee advances are deducted from salary as soon as approval is saved.</p>
         <div className="mt-5 grid gap-4 sm:grid-cols-3">

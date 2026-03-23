@@ -7,12 +7,17 @@
     "backend"
   ],
   "scripts": {
-    "dev": "concurrently \"npm --prefix frontend run dev\" \"npm --prefix backend run dev\"",
-    "dev:frontend": "npm --prefix frontend run dev",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "node ./scripts/run-next.cjs dev frontend -H 127.0.0.1 -p 3000",
     "dev:backend": "npm --prefix backend run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "node ./scripts/run-next.cjs build frontend",
+    "build:backend": "npm --prefix backend run build",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
-    "start": "npm --prefix backend run start",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "node ./scripts/run-next.cjs start frontend -H 127.0.0.1 -p 3000",
+    "start:backend": "npm --prefix backend run start",
     "lint": "npm --prefix frontend run lint && npm --prefix backend run lint"
   },
   "devDependencies": {

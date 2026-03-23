@@ -30,8 +30,8 @@ export default function ShowcaseDetailPage({
           <div className="flex items-center gap-4">
             <BrandLogo priority className="justify-center" />
             <div className="hidden sm:block">
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/70">Ved Logistics Showcase</p>
-              <p className="mt-1 text-sm text-indigo-100/70">Module-first preview flow with separate premium pages.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/70">Ved Logistics Service Details</p>
+              <p className="mt-1 text-sm text-indigo-100/70">DTDC courier services, internal operations, and team control pages.</p>
             </div>
           </div>
 
@@ -110,14 +110,14 @@ export default function ShowcaseDetailPage({
         <section className="glass p-6 sm:p-7">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/75">Related Modules</p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">Explore the rest of the system flow.</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/75">Related Pages</p>
+              <h2 className="mt-3 text-3xl font-semibold text-white">Explore more courier and operations pages.</h2>
             </div>
             <Link
               href="/"
               className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
             >
-              Return to Showcase Home
+              Return to Ved Logistics Home
             </Link>
           </div>
 

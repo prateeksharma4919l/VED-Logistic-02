@@ -1,15 +1,15 @@
 # Ved Logistics
 
-Ved Logistics is a full-stack admin, employee, and rider workspace with attendance, salary, advance payments, payment history, reports, and PDF export.
+Ved Logistics is a full-stack DTDC-partner workspace for admin and employee operations. It includes attendance, salary, advance payments, payment history, reports, PDF export, and a premium static preview for business presentation.
 
-This repo also includes a premium static preview inside `frontend/public/preview/` so the project can be shown both as a working app and as a polished design/demo system.
+This repo also includes a polished static preview inside `frontend/public/preview/` so the project can be shown both as a working app and as a premium service profile.
 
 ## Stack
 
 - Frontend: Next.js 14, TypeScript
 - Backend: Express, TypeScript
 - Database: PostgreSQL
-- Deployment: Render-ready Docker web service
+- Deployment: Render-ready Docker web service with Blueprint-managed PostgreSQL
 
 ## What Changed
 
@@ -101,31 +101,51 @@ docker run --rm -p 5000:5000 \
 
 This repo includes a Render Blueprint file: `render.yaml`
 
-### Required Render env vars
+The Blueprint now provisions:
 
-Set these on the Render web service:
+- one Docker web service: `ved-logistics-web`
+- one managed PostgreSQL database: `ved-logistics-db`
 
-- `DATABASE_URL`
-- `JWT_SECRET`
+### Render Blueprint setup
 
-Already handled in blueprint:
+1. Push this repo to GitHub.
+2. In Render, choose `New +` -> `Blueprint`.
+3. Select this repository.
+4. Render will detect `render.yaml` and create:
+   - a web service for the app
+   - a PostgreSQL database
+5. Deploy the Blueprint.
+
+### Important notes
+
+- `DATABASE_URL` is wired automatically from the Render Postgres database through the Blueprint.
+- The backend auto-initializes the PostgreSQL schema on startup.
+- Health check path is `/api/health`.
+- `NEXT_PUBLIC_API_URL=/api` is already configured so the frontend and backend work from the same Render URL.
+
+### After first deploy
+
+Seed the default login accounts:
+
+```bash
+curl -X POST https://YOUR-RENDER-URL/api/auth/seed
+```
+
+Then use:
+
+- Admin: `admin` / `admin123`
+- Employee: `employee01` / `admin123`
+
+### Manual Render env vars
+
+Already handled in the Blueprint:
 
 - `NODE_ENV=production`
 - `NEXT_PUBLIC_API_URL=/api`
 - `API_INTERNAL_PORT=4000`
 - `DISABLE_DAILY_SUMMARY=true`
 
-### Steps
-
-1. Push this repo to GitHub.
-2. In Render, create a new Blueprint using this repo.
-3. Set `DATABASE_URL` to your Render PostgreSQL external URL.
-4. Set `JWT_SECRET`.
-5. Deploy.
-
-Health check:
-
-- `/api/health`
+`JWT_SECRET` is generated automatically by the Blueprint.
 
 ## Project Structure
 

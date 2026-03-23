@@ -4,7 +4,7 @@ import RootAuthProvider from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Ved Logistics",
-  description: "Premium logistics management workspace for admin, employee, and bike meter operations.",
+  description: "Ved Logistics DTDC courier service profile with parcel support, payroll control, attendance, and bike meter operations.",
 };
 
 export default function RootLayout({

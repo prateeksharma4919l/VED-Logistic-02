@@ -7,6 +7,14 @@ import { accessPortals, showcaseModules, workDetailCards, workflowSteps, worksho
 
 export default function Home() {
   const featuredModules = showcaseModules.slice(0, 6);
+  const serviceHighlights = [
+    "Kota, Rajasthan Office",
+    "Domestic Courier",
+    "International Shipping",
+    "Doorstep Pickup",
+    "Real-Time Tracking",
+    "COD and Returns",
+  ];
 
   return (
     <main className="relative overflow-hidden px-6 py-8 sm:px-8 lg:px-12">
@@ -20,7 +28,7 @@ export default function Home() {
             <div className="hidden min-w-0 sm:block">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/70">Ved Logistics</p>
               <p className="mt-1 text-sm text-indigo-100/70">
-                Premium workshop showcase with separate system pages and clean role-based access.
+                Kota, Rajasthan based DTDC partner desk for domestic and international courier services, pickup coordination, and internal operations.
               </p>
             </div>
           </div>
@@ -36,13 +44,13 @@ export default function Home() {
               href="#modules"
               className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
             >
-              Explore Modules
+              Explore Services
             </Link>
             <Link
               href="/admin/login"
               className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
             >
-              Enter Login Flow
+              Team Login
             </Link>
           </div>
         </header>
@@ -55,22 +63,36 @@ export default function Home() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <span className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100">
-              Preview First
+              Kota, Rajasthan | DTDC Authorized Partner
             </span>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-[0.96] tracking-tight text-white sm:text-6xl">
-              A proper premium website layer for Ved Logistics, with clear details and separate option pages.
+              Ved Logistics now opens with DTDC courier details, pickup support, and a cleaner business-first service presentation.
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-indigo-100/75">
-              The first page now works like a real preview of the project: it explains the work,
-              shows the system quality, and sends every important option into its own dedicated
-              page so the experience no longer feels mixed or scattered.
+              First page ab clearly batata hai ki Ved Logistics Kota, Rajasthan me DTDC partner
+              desk ke roop me kaam karta hai. Yahan domestic aur international courier support,
+              doorstep pickup and delivery, real-time tracking help, e-commerce shipment handling,
+              aur internal team operations sab structured format me show hote hain. Contact:
+              7300187325.
             </p>
 
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {serviceHighlights.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-medium text-indigo-100/80"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
             <div className="mt-6 rounded-[1.6rem] border border-cyan-300/15 bg-cyan-400/10 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100/80">Best Starting Point</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100/80">Business Snapshot</p>
               <p className="mt-3 text-sm leading-7 text-indigo-100/78">
-                Sabse pehle static preview open karo. Wahan se full premium look, work quality,
-                sections, aur overall delivery feel sabse clearly samajh aata hai.
+                Yahan se customer ya visitor ko turant samajh aata hai ki Ved Logistics kya handle
+                karta hai: DTDC courier booking, domestic shipping, international support to 220+
+                destinations, tracking, PUDO, COD returns, aur daily control systems.
               </p>
             </div>
 
@@ -85,7 +107,7 @@ export default function Home() {
                 href="/showcase/workspace-preview"
                 className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
               >
-                Open Work Details
+                Open Service Details
               </Link>
             </div>
           </motion.article>
@@ -98,9 +120,9 @@ export default function Home() {
           >
             <div className="rounded-[1.6rem] border border-cyan-300/15 bg-cyan-400/10 p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/80">Start Here</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">Open the static preview first.</h2>
+              <h2 className="mt-3 text-2xl font-semibold text-white">See the DTDC courier service profile first.</h2>
               <p className="mt-3 text-sm leading-7 text-indigo-100/76">
-                Ye sabse clean entry hai. Isse full premium website direction turant samajh aati hai.
+                Yahan se Kota office profile, service details, contact number 7300187325, operations flow, aur Ved Logistics ka business setup sabse pehle clear dikhta hai.
               </p>
               <Link
                 href="/preview/index.html"
@@ -110,7 +132,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">Quick Stats</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">Service Snapshot</p>
             {workshopStats.map((item) => (
               <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-100/60">{item.label}</p>
@@ -130,7 +152,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.05 * index, ease: "easeOut" }}
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100/70">Work Detail</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100/70">Service Detail</p>
               <h2 className="mt-3 text-xl font-semibold text-white">{item.title}</h2>
               <p className="mt-3 text-sm leading-7 text-indigo-100/74">{item.copy}</p>
             </motion.article>
@@ -140,11 +162,11 @@ export default function Home() {
         <section id="modules" className="glass p-6 sm:p-7">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">Separate Option Pages</p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">Each important option now gets its own premium page.</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">Service and Operations Pages</p>
+              <h2 className="mt-3 text-3xl font-semibold text-white">Courier services and internal controls now sit on clearly separated pages.</h2>
             </div>
             <p className="max-w-2xl text-sm leading-7 text-indigo-100/72">
-              This keeps the website clean. Users can understand every module properly before they move into the live system.
+              Isse first page par service details clear rehti hain, aur internal team apne relevant operations page tak bina confusion ke pahunch sakti hai.
             </p>
           </div>
 
@@ -224,7 +246,7 @@ export default function Home() {
         </section>
 
         <section className="glass p-6 sm:p-7">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">How The Site Works</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">How Ved Logistics Works</p>
           <div className="mt-6 grid gap-5 lg:grid-cols-3">
             {workflowSteps.map((item) => (
               <article key={item.step} className="rounded-[1.6rem] border border-white/10 bg-white/5 p-6">
