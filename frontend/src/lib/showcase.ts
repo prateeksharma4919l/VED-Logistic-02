@@ -54,8 +54,8 @@ export const workDetailCards = [
 export const workflowSteps = [
   {
     step: "01",
-    title: "Preview the workspace",
-    copy: "Start from a proper first page that explains the system, visual direction, and key delivery modules.",
+    title: "Open static preview first",
+    copy: "Sabse pehle static preview kholo, taaki full premium direction aur project quality clearly samajh aaye.",
   },
   {
     step: "02",
@@ -101,8 +101,8 @@ export const showcaseModules: ShowcaseModule[] = [
     accent: "from-ved-500/80 via-fuchsia-400/70 to-cyan-300/70",
     shadow: "shadow-fuchsia-500/20",
     badge: "Launch View",
-    ctaHref: "/admin/login",
-    ctaLabel: "Enter Admin Login",
+    ctaHref: "/preview/index.html",
+    ctaLabel: "Open Static Preview",
     highlights: ["Premium first impression", "Clear module discovery", "Stronger CTA flow"],
     metrics: [
       { label: "Entry Flow", value: "Structured", note: "Preview first, then module detail, then system access." },

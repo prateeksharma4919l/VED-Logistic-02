@@ -27,20 +27,20 @@ export default function Home() {
 
           <div className="flex flex-wrap gap-3">
             <Link
+              href="/preview/index.html"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400/80 to-sky-300/70 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:-translate-y-0.5 hover:brightness-110"
+            >
+              Open Static Preview
+            </Link>
+            <Link
               href="#modules"
               className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
             >
               Explore Modules
             </Link>
             <Link
-              href="/preview/index.html"
-              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
-            >
-              Open Static Preview
-            </Link>
-            <Link
               href="/admin/login"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-ved-500/80 to-fuchsia-400/70 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition hover:-translate-y-0.5 hover:brightness-110"
+              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
             >
               Enter Login Flow
             </Link>
@@ -54,8 +54,8 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200/80">
-              Project Preview
+            <span className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100">
+              Preview First
             </span>
             <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-[0.96] tracking-tight text-white sm:text-6xl">
               A proper premium website layer for Ved Logistics, with clear details and separate option pages.
@@ -66,18 +66,26 @@ export default function Home() {
               page so the experience no longer feels mixed or scattered.
             </p>
 
+            <div className="mt-6 rounded-[1.6rem] border border-cyan-300/15 bg-cyan-400/10 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100/80">Best Starting Point</p>
+              <p className="mt-3 text-sm leading-7 text-indigo-100/78">
+                Sabse pehle static preview open karo. Wahan se full premium look, work quality,
+                sections, aur overall delivery feel sabse clearly samajh aata hai.
+              </p>
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/showcase/workspace-preview"
+                href="/preview/index.html"
                 className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400/80 to-sky-300/70 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:-translate-y-0.5 hover:brightness-110"
               >
-                Open Work Details
+                Open Static Preview
               </Link>
               <Link
-                href="/employee/login"
+                href="/showcase/workspace-preview"
                 className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
               >
-                View Employee Entry
+                Open Work Details
               </Link>
             </div>
           </motion.article>
@@ -88,6 +96,20 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
           >
+            <div className="rounded-[1.6rem] border border-cyan-300/15 bg-cyan-400/10 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-100/80">Start Here</p>
+              <h2 className="mt-3 text-2xl font-semibold text-white">Open the static preview first.</h2>
+              <p className="mt-3 text-sm leading-7 text-indigo-100/76">
+                Ye sabse clean entry hai. Isse full premium website direction turant samajh aati hai.
+              </p>
+              <Link
+                href="/preview/index.html"
+                className="mt-5 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-400/80 to-sky-300/70 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition hover:-translate-y-0.5 hover:brightness-110"
+              >
+                Open Static Preview
+              </Link>
+            </div>
+
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80">Quick Stats</p>
             {workshopStats.map((item) => (
               <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
