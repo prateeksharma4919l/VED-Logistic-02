@@ -79,6 +79,7 @@ web_modules/
 # Next.js build output
 .next/
 .next-dev/
+.next-prod/
 out/
 
 # Nuxt.js build / generate output
@@ -168,6 +169,7 @@ pids
 
 # next.js build output
 .next
+.next-prod
 
 # nuxt.js build output
 .nuxt

@@ -8,22 +8,30 @@ const nextArgs = process.argv.slice(2);
 const command = nextArgs[0];
 const appDirArg = nextArgs[1];
 const appDir = appDirArg ? path.resolve(rootDir, appDirArg) : rootDir;
-const distDirName = command === "dev" ? ".next-dev" : ".next";
+const forwardedArgs = appDirArg ? [command, ...nextArgs.slice(2)] : nextArgs;
+const distDirName = command === "dev" ? ".next" : ".next-prod";
 const distDirPath = path.join(appDir, distDirName);
 
-if (command === "dev") {
+if (command === "dev" || command === "build") {
   fs.rmSync(distDirPath, { recursive: true, force: true });
 }
 
-process.chdir(rootDir);
+process.chdir(appDir);
 
-const child = spawn(process.execPath, ["--max-old-space-size=4096", nextBin, ...nextArgs], {
-  cwd: rootDir,
+const env = {
+  ...process.env,
+};
+
+if (command !== "dev") {
+  env.NEXT_DIST_DIR = distDirName;
+} else {
+  delete env.NEXT_DIST_DIR;
+}
+
+const child = spawn(process.execPath, ["--max-old-space-size=4096", nextBin, ...forwardedArgs], {
+  cwd: appDir,
   stdio: "inherit",
-  env: {
-    ...process.env,
-    NEXT_DIST_DIR: distDirName,
-  },
+  env,
 });
 
 child.on("exit", (code, signal) => {

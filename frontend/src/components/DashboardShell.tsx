@@ -137,6 +137,7 @@ export function DashboardShell({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const currentItem = items.find((item) => pathname === item.href) ?? items[0];
   const isAdminRoute = pathname.startsWith("/admin");
+  const isEmployeeRoute = pathname.startsWith("/employee");
   const currentGuide = workspaceGuides[currentItem?.label] ?? {
     tag: "Workspace",
     points: [
@@ -145,10 +146,10 @@ export function DashboardShell({
       "Return to the overview whenever you need a full snapshot.",
     ],
   };
-  const showWorkspaceRail =
-    (pathname.startsWith("/employee") || pathname.startsWith("/rider")) && !isAdminRoute;
-  const shellMaxWidthClass = isAdminRoute ? "max-w-none" : "max-w-[1600px]";
-  const mainMaxWidthClass = isAdminRoute ? "max-w-none" : "max-w-[1760px]";
+  const useWideShell = isAdminRoute || isEmployeeRoute;
+  const showWorkspaceRail = pathname.startsWith("/rider");
+  const shellMaxWidthClass = useWideShell ? "max-w-none" : "max-w-[1600px]";
+  const mainMaxWidthClass = useWideShell ? "max-w-none" : "max-w-[1760px]";
 
   return (
     <motion.div
