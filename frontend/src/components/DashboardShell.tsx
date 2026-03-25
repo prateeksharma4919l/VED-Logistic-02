@@ -158,19 +158,19 @@ export function DashboardShell({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
     >
-      <header className="glass sticky top-0 z-20 border-b border-transparent bg-white/[0.03] px-6 py-4 backdrop-blur-xl">
+      <header className="glass sticky top-0 z-20 border-b border-slate-200/70 bg-white/80 px-6 py-4 backdrop-blur-xl">
         <div className={`mx-auto flex w-full items-center justify-between gap-6 ${shellMaxWidthClass}`}>
           <div className="flex min-w-0 items-center gap-4">
             <BrandLogo compact className="shrink-0" />
             <div className="min-w-0">
-              <h1 className="truncate text-xl font-semibold text-white">{title}</h1>
-              {subtitle ? <p className="truncate text-sm text-indigo-100/70">{subtitle}</p> : null}
+              <h1 className="truncate text-xl font-semibold text-slate-900">{title}</h1>
+              {subtitle ? <p className="truncate text-sm text-slate-600">{subtitle}</p> : null}
             </div>
           </div>
           <button
             type="button"
             onClick={signOut}
-            className="rounded-full border border-transparent bg-white/[0.04] px-4 py-2 text-sm text-white shadow-sm transition hover:bg-white/[0.08]"
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50"
           >
             Sign out
           </button>
@@ -204,10 +204,10 @@ export function DashboardShell({
               {sidebarOpen ? <FaAnglesLeft /> : <FaAnglesRight />}
             </motion.button>
           </div>
-          <div className="px-1 text-xs font-semibold uppercase tracking-wide text-indigo-200/80">
+          <div className="px-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
             <div className="flex items-center justify-between gap-3">
               <span>{sidebarOpen ? "Navigation" : "Menu"}</span>
-              <span className="text-[10px] text-indigo-100/45">{sidebarOpen ? "Live" : ""}</span>
+              <span className="text-[10px] text-red-500/65">{sidebarOpen ? "Live" : ""}</span>
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -224,11 +224,11 @@ export function DashboardShell({
                     href={item.href}
                     className={`group flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3 text-sm font-medium transition ${
                       active
-                        ? "bg-ved-500/18 text-white shadow-[0_0_18px_rgba(139,92,246,0.16)]"
-                        : "bg-white/[0.03] text-indigo-100/80 hover:bg-white/[0.06]"
+                        ? "border border-red-200 bg-gradient-to-r from-red-50 to-orange-50 text-slate-900 shadow-[0_14px_28px_rgba(239,68,68,0.08)]"
+                        : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                     }`}
                   >
-                    <span className="icon-button border-transparent bg-transparent p-0 text-lg shadow-none group-hover:shadow-[0_0_14px_rgba(34,211,238,0.25)]">
+                    <span className="icon-button border-transparent bg-transparent p-0 text-lg shadow-none group-hover:shadow-[0_0_14px_rgba(239,68,68,0.14)]">
                       {item.icon ?? fallbackIcons[item.label] ?? <FaChartLine />}
                     </span>
                     {sidebarOpen ? <span className="truncate">{item.label}</span> : null}
@@ -250,7 +250,9 @@ export function DashboardShell({
                     key={item.href}
                     href={item.href}
                     className={`whitespace-nowrap rounded-full px-4 py-2 text-sm transition ${
-                      active ? "bg-ved-500/18 text-white" : "bg-white/[0.03] text-indigo-100/80 hover:bg-white/[0.06]"
+                      active
+                        ? "border border-red-200 bg-gradient-to-r from-red-50 to-orange-50 text-slate-900"
+                        : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     {item.label}
@@ -270,37 +272,37 @@ export function DashboardShell({
               <div className="glass p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-100/70">{currentGuide.tag}</p>
-                    <h2 className="mt-2 text-xl font-semibold text-white">{currentItem?.label ?? title}</h2>
-                    <p className="mt-2 text-sm leading-7 text-indigo-100/72">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-orange-700/80">{currentGuide.tag}</p>
+                    <h2 className="mt-2 text-xl font-semibold text-slate-900">{currentItem?.label ?? title}</h2>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">
                       {subtitle ?? "Admin workspace quick actions and page guidance."}
                     </p>
                   </div>
-                  <div className="icon-button h-11 w-11 border-transparent bg-white/5 text-lg text-cyan-100">
+                  <div className="icon-button h-11 w-11 border-slate-200 bg-white text-lg text-red-500">
                     {currentItem?.icon ?? fallbackIcons[currentItem?.label ?? "Overview"] ?? <FaChartLine />}
                   </div>
                 </div>
 
                 <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100/55">Visible Pages</p>
-                    <p className="mt-2 text-3xl font-semibold text-white">{items.length}</p>
+                  <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Visible Pages</p>
+                    <p className="mt-2 text-3xl font-semibold text-slate-900">{items.length}</p>
                   </div>
-                  <div className="rounded-2xl border border-cyan-300/15 bg-cyan-400/10 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100/75">Active Module</p>
-                    <p className="mt-2 text-base font-semibold text-white">{currentItem?.label ?? title}</p>
+                  <div className="rounded-2xl border border-orange-200 bg-gradient-to-r from-red-50 to-orange-50 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-700/75">Active Module</p>
+                    <p className="mt-2 text-base font-semibold text-slate-900">{currentItem?.label ?? title}</p>
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-[1.6rem] border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-100/60">Current Checklist</p>
+                <div className="mt-5 rounded-[1.6rem] border border-slate-200 bg-white p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Current Checklist</p>
                   <div className="mt-4 space-y-3">
                     {currentGuide.points.map((point, index) => (
-                      <div key={point} className="rounded-2xl border border-white/10 bg-black/10 px-4 py-3">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-100/70">
+                      <div key={point} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-700/75">
                           {String(index + 1).padStart(2, "0")}
                         </p>
-                        <p className="mt-2 text-sm leading-6 text-indigo-100/78">{point}</p>
+                        <p className="mt-2 text-sm leading-6 text-slate-600">{point}</p>
                       </div>
                     ))}
                   </div>
@@ -310,10 +312,10 @@ export function DashboardShell({
               <div className="glass p-5">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-100/55">Quick Access</p>
-                    <h3 className="mt-2 text-lg font-semibold text-white">All admin pages</h3>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Quick Access</p>
+                    <h3 className="mt-2 text-lg font-semibold text-slate-900">All admin pages</h3>
                   </div>
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-100/55">
+                  <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                     live
                   </span>
                 </div>
@@ -327,8 +329,8 @@ export function DashboardShell({
                         href={item.href}
                         className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm transition ${
                           active
-                            ? "border-cyan-300/25 bg-cyan-400/10 text-white"
-                            : "border-white/10 bg-white/5 text-indigo-100/78 hover:bg-white/10"
+                            ? "border-orange-200 bg-gradient-to-r from-red-50 to-orange-50 text-slate-900"
+                            : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                         }`}
                       >
                         <span className="icon-button h-9 w-9 border-transparent bg-transparent p-0 text-base shadow-none">

@@ -92,7 +92,7 @@ export function RoleLoginExperience({
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute left-[-5rem] top-[30%] h-80 w-80 rounded-full bg-ved-500/15 blur-3xl"
+        className="absolute left-[-5rem] top-[30%] h-80 w-80 rounded-full bg-red-500/10 blur-3xl"
         animate={{ y: [0, -18, 0], scale: [1.04, 1, 1.04] }}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -106,72 +106,72 @@ export function RoleLoginExperience({
         >
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className={`rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] ${accentTextClassName} bg-white/5`}>
+              <span className={`rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] ${accentTextClassName}`}>
                 {badge}
               </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-indigo-100/65">
+              <span className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
                 Local Workshop Mode
               </span>
             </div>
 
             <div className="mt-7 max-w-3xl">
               <BrandLogo priority />
-              <h1 className="mt-8 text-4xl font-semibold leading-[0.94] tracking-tight text-white sm:text-6xl">
+              <h1 className="mt-8 text-4xl font-semibold leading-[0.94] tracking-tight text-slate-900 sm:text-6xl">
                 {title}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-indigo-100/72">
+              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
                 {description}
               </p>
             </div>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {stats.map((item) => (
-                <div key={item.label} className="rounded-[1.6rem] border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-indigo-100/60">
+                <div key={item.label} className="rounded-[1.6rem] border border-slate-200 bg-white/95 p-4 shadow-[0_12px_32px_rgba(15,23,42,0.05)]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
                     {item.label}
                   </p>
-                  <strong className="mt-3 block text-2xl font-semibold text-white">{item.value}</strong>
-                  <p className="mt-2 text-sm leading-6 text-indigo-100/62">{item.note}</p>
+                  <strong className="mt-3 block text-2xl font-semibold text-slate-900">{item.value}</strong>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.note}</p>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="mt-10 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(240px,0.86fr)]">
-            <div className="rounded-[1.8rem] border border-white/10 bg-slate-950/20 p-5">
+            <div className="rounded-[1.8rem] border border-slate-200 bg-[linear-gradient(135deg,rgba(254,242,242,0.94),rgba(255,247,237,0.96),rgba(255,255,255,0.96))] p-5">
               <div className="flex items-center gap-3">
                 <span className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${accentClassName} text-white shadow-lg`}>
                   <FaShieldAlt />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-white">What improves here</p>
-                  <p className="text-xs uppercase tracking-[0.22em] text-indigo-100/50">UI + flow + clarity</p>
+                  <p className="text-sm font-semibold text-slate-900">What improves here</p>
+                  <p className="text-xs uppercase tracking-[0.22em] text-slate-500">UI + flow + clarity</p>
                 </div>
               </div>
 
               <div className="mt-5 space-y-3">
                 {quickPoints.map((point) => (
-                  <div key={point} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-indigo-100/78">
+                  <div key={point} className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-700">
                     {point}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-200/70">
+            <div className="rounded-[1.8rem] border border-slate-200 bg-white/95 p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-700">
                 Demo Access
               </p>
               <div className="mt-4 space-y-3">
-                <div className="rounded-2xl border border-white/10 bg-black/15 px-4 py-3">
-                  <p className="text-sm font-semibold text-white">{demoAccess.label}</p>
-                  <p className="mt-1 text-sm text-indigo-100/70">{demoAccess.identifier}</p>
-                  <p className="mt-1 text-sm text-indigo-100/70">{demoAccess.password}</p>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                  <p className="text-sm font-semibold text-slate-900">{demoAccess.label}</p>
+                  <p className="mt-1 text-sm text-slate-600">{demoAccess.identifier}</p>
+                  <p className="mt-1 text-sm text-slate-600">{demoAccess.password}</p>
                 </div>
                 <button
                   type="button"
                   onClick={useDemoAccess}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:bg-slate-50"
                 >
                     <FaPlay />
                   Use Demo Credentials
@@ -187,15 +187,15 @@ export function RoleLoginExperience({
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
         >
-          <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+          <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
 
           <div className="mx-auto w-full max-w-md">
             <div className="mb-7">
               <p className={`text-xs font-semibold uppercase tracking-[0.3em] ${accentTextClassName}`}>
                 Secure Login
               </p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">Welcome back</h2>
-              <p className="mt-2 text-sm leading-7 text-indigo-100/70">
+              <h2 className="mt-3 text-3xl font-semibold text-slate-900">Welcome back</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-600">
                 Sign in to continue into the {role} workspace with improved visuals and smoother motion.
               </p>
             </div>
@@ -203,7 +203,7 @@ export function RoleLoginExperience({
             <form onSubmit={onSubmit} className="space-y-5">
               {error ? (
                 <motion.div
-                  className="rounded-2xl border border-red-400/20 bg-red-500/12 px-4 py-3 text-sm text-red-50"
+                  className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -212,7 +212,7 @@ export function RoleLoginExperience({
               ) : null}
 
               <label className="block">
-                <span className="text-sm font-medium text-indigo-100/80">Email or User ID</span>
+                <span className="text-sm font-medium text-slate-700">Email or User ID</span>
                 <input
                   type="text"
                   required
@@ -224,7 +224,7 @@ export function RoleLoginExperience({
               </label>
 
               <label className="block">
-                <span className="text-sm font-medium text-indigo-100/80">Password</span>
+                <span className="text-sm font-medium text-slate-700">Password</span>
                 <div className="relative mt-2">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -237,7 +237,7 @@ export function RoleLoginExperience({
                   <button
                     type="button"
                     onClick={() => setShowPassword((value) => !value)}
-                    className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10"
+                    className="absolute right-3 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50"
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -264,16 +264,16 @@ export function RoleLoginExperience({
               </button>
             </form>
 
-            <div className="mt-6 flex items-center justify-between gap-4 rounded-[1.6rem] border border-white/10 bg-white/5 px-4 py-3">
+            <div className="mt-6 flex items-center justify-between gap-4 rounded-[1.6rem] border border-slate-200 bg-white/95 px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.04)]">
               <div>
-                <p className="text-sm font-semibold text-white">Back to workspace home</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.24em] text-indigo-100/50">
+                <p className="text-sm font-semibold text-slate-900">Back to workspace home</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.24em] text-slate-500">
                   Ved Logistics
                 </p>
               </div>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:bg-slate-50"
               >
                 Home
               </Link>

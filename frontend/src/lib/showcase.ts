@@ -46,8 +46,8 @@ export const workDetailCards = [
     copy: "Admin and employee portals stay connected for attendance, salary, advance approvals, bike meter readings, and daily operational records.",
   },
   {
-    title: "Tracking, PUDO, and Reporting",
-    copy: "Shipment follow-up, real-time tracking, PUDO convenience, payout status, field movement, and reporting visibility are shown in a cleaner way.",
+    title: "Tracking and Reporting",
+    copy: "Shipment follow-up, real-time tracking, payout status, field movement, and reporting visibility are shown in a cleaner way.",
   },
 ];
 
