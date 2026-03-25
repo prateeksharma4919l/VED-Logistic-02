@@ -42,21 +42,7 @@ export default function Home() {
           id="home-top"
           className="rounded-[30px] border border-slate-200/80 bg-white/80 p-4 shadow-[0_22px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-5"
         >
-          <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-[linear-gradient(90deg,rgba(255,237,213,0.76),rgba(255,255,255,0.92),rgba(224,242,254,0.76))]">
-            <div className="service-ticker-track">
-              {[...tickerItems, ...tickerItems].map((item, index) => (
-                <span
-                  key={`${item}-${index}`}
-                  className="flex items-center gap-3 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-700"
-                >
-                  <span className="h-2 w-2 rounded-full bg-gradient-to-r from-red-500 to-orange-400" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-4 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <BrandLogo priority className="justify-center sm:justify-start" />
               <div className="min-w-0">
@@ -135,77 +121,98 @@ export default function Home() {
 
         <div className="grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
           <aside className="hidden xl:block">
-            <div className="home-sidebar-shell">
-              <div className="home-sidebar-top">
-                <span className="home-sidebar-badge">
-                  <span className="home-sidebar-dot" />
-                  Ved Logistics Menu
-                </span>
-                <div className="relative">
-                  <FaSearch className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-white/60" />
-                  <input
-                    type="text"
-                    value={menuQuery}
-                    onChange={(event) => setMenuQuery(event.target.value)}
-                    placeholder="Search Menu..."
-                    className="home-sidebar-search pl-11"
-                  />
+            <div className="flex flex-col gap-6">
+              <div className="home-sidebar-shell">
+                <div className="home-sidebar-top">
+                  <span className="home-sidebar-badge">
+                    <span className="home-sidebar-dot" />
+                    Ved Logistics Menu
+                  </span>
+                  <div className="relative">
+                    <FaSearch className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-white/60" />
+                    <input
+                      type="text"
+                      value={menuQuery}
+                      onChange={(event) => setMenuQuery(event.target.value)}
+                      placeholder="Search Menu..."
+                      className="home-sidebar-search pl-11"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <nav className="home-sidebar-menu" aria-label="Homepage sections">
-                {filteredMenuItems.map((item, index) => {
-                  const Icon = item.icon;
-                  const content = (
-                    <>
-                      <span className="home-sidebar-item-main">
-                        <span className="home-sidebar-icon">
-                          <Icon />
+                <nav className="home-sidebar-menu" aria-label="Homepage sections">
+                  {filteredMenuItems.map((item, index) => {
+                    const Icon = item.icon;
+                    const content = (
+                      <>
+                        <span className="home-sidebar-item-main">
+                          <span className="home-sidebar-icon">
+                            <Icon />
+                          </span>
+                          <span className="home-sidebar-item-copy">
+                            <span className="home-sidebar-item-label">{item.label}</span>
+                            <span className="home-sidebar-item-note">{item.note}</span>
+                          </span>
                         </span>
-                        <span className="home-sidebar-item-copy">
-                          <span className="home-sidebar-item-label">{item.label}</span>
-                          <span className="home-sidebar-item-note">{item.note}</span>
-                        </span>
-                      </span>
-                      <FaChevronRight className="home-sidebar-arrow" />
-                    </>
-                  );
+                        <FaChevronRight className="home-sidebar-arrow" />
+                      </>
+                    );
 
-                  if (item.route) {
+                    if (item.route) {
+                      return (
+                        <Link
+                          key={item.label}
+                          href={item.href}
+                          className={`home-sidebar-item ${index === 0 ? "is-highlight" : ""}`.trim()}
+                        >
+                          {content}
+                        </Link>
+                      );
+                    }
+
                     return (
-                      <Link
+                      <a
                         key={item.label}
                         href={item.href}
                         className={`home-sidebar-item ${index === 0 ? "is-highlight" : ""}`.trim()}
                       >
                         {content}
-                      </Link>
+                      </a>
                     );
-                  }
+                  })}
+                </nav>
 
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className={`home-sidebar-item ${index === 0 ? "is-highlight" : ""}`.trim()}
-                    >
-                      {content}
-                    </a>
-                  );
-                })}
-              </nav>
+                <div className="home-sidebar-footer">
+                  <div className="home-sidebar-utility">
+                    <p>Branch Desk</p>
+                    <strong>Call 7300187325</strong>
+                    <span>Parcel booking, pickup coordination, shipment support, and business enquiries.</span>
+                  </div>
+                  <div className="home-sidebar-utility">
+                    <p>Theme Switch</p>
+                    <strong>Top Theme Button</strong>
+                    <span>Light aur dark mode ka option top par available hai aur poori React site me kaam karega.</span>
+                  </div>
+                </div>
+              </div>
 
-              <div className="home-sidebar-footer">
-                <div className="home-sidebar-utility">
-                  <p>Branch Desk</p>
-                  <strong>Call 7300187325</strong>
-                  <span>Parcel booking, pickup coordination, shipment support, and business enquiries.</span>
+              <div className="home-sidebar-support-card">
+                <p className="home-sidebar-support-label">Service Support</p>
+                <h3 className="home-sidebar-support-title">
+                  Booking, tracking, pickup, aur business dispatch ke liye direct branch guidance.
+                </h3>
+                <div className="home-sidebar-support-points">
+                  <span>Domestic courier desk</span>
+                  <span>International shipment support</span>
+                  <span>Pickup coordination</span>
+                  <span>Customer and team login access</span>
                 </div>
-                <div className="home-sidebar-utility">
-                  <p>Theme Switch</p>
-                  <strong>Top Theme Button</strong>
-                  <span>Light aur dark mode ka option top par available hai aur poori React site me kaam karega.</span>
-                </div>
+                <Link
+                  href="/preview/index.html"
+                  className="home-sidebar-support-button"
+                >
+                  Open Static Preview
+                </Link>
               </div>
             </div>
           </aside>
@@ -267,17 +274,19 @@ export default function Home() {
                   </a>
                 </div>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="mt-8 grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
                   {quickStats.map((item) => (
                     <div
                       key={item.label}
-                      className="rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
+                      className="flex min-h-[180px] flex-col rounded-[24px] border border-slate-200 bg-white/90 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
                     >
                       <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">
                         {item.label}
                       </p>
-                      <strong className="mt-3 block text-2xl font-semibold text-slate-900">{item.value}</strong>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">{item.note}</p>
+                      <strong className="mt-3 block break-words text-[clamp(1.5rem,2.2vw,2rem)] font-semibold leading-tight text-slate-900">
+                        {item.value}
+                      </strong>
+                      <p className="mt-2 break-words text-sm leading-6 text-slate-600">{item.note}</p>
                     </div>
                   ))}
                 </div>
@@ -503,6 +512,22 @@ export default function Home() {
                   >
                     Visit DTDC Official Site
                   </a>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-[30px] border border-slate-200/80 bg-[linear-gradient(90deg,rgba(255,237,213,0.76),rgba(255,255,255,0.92),rgba(224,242,254,0.76))] p-3 shadow-[0_18px_52px_rgba(15,23,42,0.05)]">
+              <div className="overflow-hidden rounded-[24px] border border-slate-200/80 bg-white/60">
+                <div className="service-ticker-track">
+                  {[...tickerItems, ...tickerItems].map((item, index) => (
+                    <span
+                      key={`bottom-${item}-${index}`}
+                      className="flex items-center gap-3 px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-slate-700"
+                    >
+                      <span className="h-2 w-2 rounded-full bg-gradient-to-r from-red-500 to-orange-400" />
+                      {item}
+                    </span>
+                  ))}
                 </div>
               </div>
             </section>
