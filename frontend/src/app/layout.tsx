@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import RootAuthProvider from "@/components/AuthProvider";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Ved Logistics",
@@ -24,12 +25,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${bodyFont.variable} ${displayFont.variable} theme-light`}>
         <div className="min-h-screen">
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.18),transparent_55%)]" />
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_bottom,_rgba(14,165,233,0.12),transparent_55%)]" />
-          <RootAuthProvider>{children}</RootAuthProvider>
+          <div className="app-ambient app-ambient-top" />
+          <div className="app-ambient app-ambient-bottom" />
+          <RootAuthProvider>
+            <ThemeToggle />
+            {children}
+          </RootAuthProvider>
         </div>
       </body>
     </html>
