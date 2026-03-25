@@ -138,5 +138,5 @@ export const homeMenuItems: HomeMenuItem[] = [
   { label: "Contact Desk", note: "Call branch", href: "#contact-panel", icon: FaPhoneAlt },
   { label: "Digital Access", note: "Login panel", href: "#digital-access", icon: FaSignInAlt },
   { label: "Static Preview", note: "Preview route", href: "/preview/index.html", icon: FaChartLine, route: true },
-  { label: "Team Login", note: "Admin access", href: "/admin/login", icon: FaUserShield, route: true },
+  { label: "Team Login", note: "Admin + employee", href: "/team-login", icon: FaUserShield, route: true },
 ];

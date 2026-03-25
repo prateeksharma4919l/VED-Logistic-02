@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaChevronRight, FaSearch } from "react-icons/fa";
+import { FaChevronRight, FaSearch, FaTimes } from "react-icons/fa";
 import { BrandLogo } from "@/components/BrandLogo";
 import {
   digitalAccess,
@@ -70,7 +70,7 @@ export default function Home() {
                 Call 7300187325
               </a>
               <Link
-                href="/admin/login"
+                href="/team-login"
                 className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:bg-slate-50"
               >
                 Team Login
@@ -135,15 +135,36 @@ export default function Home() {
                       value={menuQuery}
                       onChange={(event) => setMenuQuery(event.target.value)}
                       placeholder="Search Menu..."
-                      className="home-sidebar-search pl-11"
+                      className="home-sidebar-search"
                     />
+                    {menuQuery ? (
+                      <button
+                        type="button"
+                        onClick={() => setMenuQuery("")}
+                        className="home-sidebar-search-clear"
+                        aria-label="Clear search"
+                      >
+                        <FaTimes />
+                      </button>
+                    ) : null}
+                  </div>
+                  <div className="home-sidebar-search-meta">
+                    <span>
+                      {filteredMenuItems.length} / {homeMenuItems.length} options
+                    </span>
+                    {menuQuery ? (
+                      <span>Results for "{menuQuery}"</span>
+                    ) : (
+                      <span>Search sections and pages</span>
+                    )}
                   </div>
                 </div>
 
                 <nav className="home-sidebar-menu" aria-label="Homepage sections">
-                  {filteredMenuItems.map((item, index) => {
-                    const Icon = item.icon;
-                    const content = (
+                  {filteredMenuItems.length ? (
+                    filteredMenuItems.map((item, index) => {
+                      const Icon = item.icon;
+                      const content = (
                       <>
                         <span className="home-sidebar-item-main">
                           <span className="home-sidebar-icon">
@@ -156,30 +177,43 @@ export default function Home() {
                         </span>
                         <FaChevronRight className="home-sidebar-arrow" />
                       </>
-                    );
+                      );
 
-                    if (item.route) {
+                      if (item.route) {
+                        return (
+                          <Link
+                            key={item.label}
+                            href={item.href}
+                            className={`home-sidebar-item ${index === 0 ? "is-highlight" : ""}`.trim()}
+                          >
+                            {content}
+                          </Link>
+                        );
+                      }
+
                       return (
-                        <Link
+                        <a
                           key={item.label}
                           href={item.href}
                           className={`home-sidebar-item ${index === 0 ? "is-highlight" : ""}`.trim()}
                         >
                           {content}
-                        </Link>
+                        </a>
                       );
-                    }
-
-                    return (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className={`home-sidebar-item ${index === 0 ? "is-highlight" : ""}`.trim()}
+                    })
+                  ) : (
+                    <div className="home-sidebar-empty-state">
+                      <strong>No matching menu found</strong>
+                      <span>Try words like `dashboard`, `services`, `preview`, ya `login`.</span>
+                      <button
+                        type="button"
+                        onClick={() => setMenuQuery("")}
+                        className="home-sidebar-empty-button"
                       >
-                        {content}
-                      </a>
-                    );
-                  })}
+                        Clear Search
+                      </button>
+                    </div>
+                  )}
                 </nav>
 
                 <div className="home-sidebar-footer">
